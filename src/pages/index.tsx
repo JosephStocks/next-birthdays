@@ -6,8 +6,6 @@ import { api } from "@/utils/api";
 const Home: NextPage = () => {
   const user = useUser();
 
-  const { data } = api.posts.getAll.useQuery();
-
   return (
     <>
       <Head>

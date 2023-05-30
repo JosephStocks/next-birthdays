@@ -11,7 +11,7 @@ import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
 import { prisma } from "@/server/db";
-import { getAuth } from "@clerk/nextjs/dist/types/server-helpers.server";
+import { getAuth } from "@clerk/nextjs/server";
 import { contextProps } from "@trpc/react-query/shared";
 import next from "next/types";
 
@@ -35,7 +35,7 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
 
   return {
     prisma,
-    currentUser: authSession.user,
+    currentUserId: authSession.userId,
   };
 };
 
@@ -85,7 +85,7 @@ export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
 const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
-  if (!ctx.currentUser) {
+  if (!ctx.currentUserId) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
     });
@@ -93,7 +93,7 @@ const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
 
   return next({
     ctx: {
-      currentUser: ctx.currentUser,
+      currentUserId: ctx.currentUserId,
     },
   });
 });

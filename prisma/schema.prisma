@@ -25,6 +25,8 @@ model Birthday {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     birthday  DateTime @db.Date
+    firstName String
+    lastName  String
     userId    String
 
     @@index([userId])

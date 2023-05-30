@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         {data?.map((birthday) => (
-          <div>{birthday.firstName}</div>
+          <div key={birthday.id}>{birthday.firstName}</div>
         ))}
       </main>
     </>

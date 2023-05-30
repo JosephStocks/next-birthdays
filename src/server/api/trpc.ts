@@ -12,8 +12,6 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 import { prisma } from "@/server/db";
 import { getAuth } from "@clerk/nextjs/server";
-import { contextProps } from "@trpc/react-query/shared";
-import next from "next/types";
 
 /**
  * 1. CONTEXT

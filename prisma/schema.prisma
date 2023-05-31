@@ -26,7 +26,7 @@ model Birthday {
     updatedAt DateTime @updatedAt
     birthday  DateTime @db.Date
     firstName String
-    lastName  String
+    lastName  String?
     userId    String
 
     @@index([userId])

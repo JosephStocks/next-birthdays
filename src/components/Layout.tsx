@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import Head from "next/head";
 
 const Layout = ({
@@ -14,7 +14,9 @@ const Layout = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`mx-auto min-h-screen max-w-screen-lg border border-primaryblue-400 ${className}`}
+        className={`mx-auto min-h-screen max-w-screen-lg border border-primaryblue-400 ${
+          className ? className : ""
+        }`}
       >
         {children}
       </main>

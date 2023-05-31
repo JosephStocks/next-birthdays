@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
-import { Input } from "postcss";
 
 export const birthdaysRouter = createTRPCRouter({
   getById: privateProcedure
@@ -25,7 +24,7 @@ export const birthdaysRouter = createTRPCRouter({
   add: privateProcedure
     .input(
       z.object({
-        birthday: z.string().min(1),
+        birthday: z.date(),
         firstName: z.string().min(1),
         lastName: z.string().min(1).optional(),
       })
@@ -42,7 +41,7 @@ export const birthdaysRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string().cuid(),
-        birthday: z.string().optional(),
+        birthday: z.date().optional(),
         firstName: z.string().min(1).optional(),
         lastName: z.string().min(1).optional(),
       })

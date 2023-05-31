@@ -1,8 +1,12 @@
+import Layout from "@/components/Layout";
 import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {
   return (
-    <main className="flex h-screen items-center justify-center">
+    <Layout
+      title="Birthdays | Sign Up"
+      className="flex items-center justify-center"
+    >
       <SignUp
         appearance={{
           elements: {
@@ -10,6 +14,6 @@ export default function Page() {
           },
         }}
       />
-    </main>
+    </Layout>
   );
 }

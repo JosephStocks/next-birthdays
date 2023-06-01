@@ -60,7 +60,7 @@ const MyBirthdays: NextPage = () => {
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
-              <p className="text-sm text-red-500">
+              <p className="p-1 text-sm font-normal tracking-wider text-red-500">
                 {errors.firstName?.message ? errors.firstName?.message : nbsp}
               </p>
             </div>
@@ -81,7 +81,7 @@ const MyBirthdays: NextPage = () => {
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
-              <p className="text-sm text-red-500">
+              <p className="p-1 text-sm font-normal tracking-wider text-red-500">
                 {errors.lastName?.message ? errors.lastName?.message : nbsp}
               </p>
             </div>

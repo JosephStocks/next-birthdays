@@ -1,13 +1,13 @@
-import { z } from "zod";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
+import {
+  BirthdayAndIdSchema,
+  BirthdayIdOnlySchema,
+  BirthdaySchema,
+} from "@/models/birthdays";
 
 export const birthdaysRouter = createTRPCRouter({
   getById: privateProcedure
-    .input(
-      z.object({
-        id: z.string().cuid(),
-      })
-    )
+    .input(BirthdayIdOnlySchema)
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.birthday.findFirst({
         where: {
@@ -22,13 +22,7 @@ export const birthdaysRouter = createTRPCRouter({
     });
   }),
   add: privateProcedure
-    .input(
-      z.object({
-        birthday: z.date(),
-        firstName: z.string().min(1),
-        lastName: z.string().min(1).optional(),
-      })
-    )
+    .input(BirthdaySchema)
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.birthday.create({
         data: {
@@ -38,14 +32,7 @@ export const birthdaysRouter = createTRPCRouter({
       });
     }),
   update: privateProcedure
-    .input(
-      z.object({
-        id: z.string().cuid(),
-        birthday: z.date().optional(),
-        firstName: z.string().min(1).optional(),
-        lastName: z.string().min(1).optional(),
-      })
-    )
+    .input(BirthdayAndIdSchema)
     .mutation(({ ctx, input }) => {
       const { id, ...rest } = input;
       return ctx.prisma.birthday.update({
@@ -56,11 +43,7 @@ export const birthdaysRouter = createTRPCRouter({
       });
     }),
   deleteById: privateProcedure
-    .input(
-      z.object({
-        id: z.string().cuid(),
-      })
-    )
+    .input(BirthdayIdOnlySchema)
     .query(({ ctx, input }) => {
       return ctx.prisma.birthday.delete({
         where: {

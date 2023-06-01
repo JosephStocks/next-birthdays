@@ -44,7 +44,7 @@ const MyBirthdays: NextPage = () => {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-12">
+        <div className="mx-auto mt-10 grid max-w-screen-sm grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-12">
           <div className="sm:col-span-6">
             <label
               htmlFor="firstName"

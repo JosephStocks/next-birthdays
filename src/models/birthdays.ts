@@ -1,7 +1,16 @@
 import { z } from "zod";
 
+export const DaySchema = z.object({
+  year: z.number(),
+  month: z.number(),
+  day: z.number(),
+});
+
+// export const DayValueSchema = z.union([DaySchema, z.undefined()]).nullable();
+export const DayValueSchema = DaySchema;
+
 export const BirthdaySchema = z.object({
-  birthday: z.date(),
+  birthday: DayValueSchema,
   firstName: z.string().min(1),
   lastName: z.string().min(1).optional(),
 });

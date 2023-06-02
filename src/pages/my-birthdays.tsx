@@ -1,42 +1,35 @@
 import { type NextPage } from "next";
-import { useEffect, useState } from "react";
-import Datepicker from "react-tailwindcss-datepicker";
 import { api } from "@/utils/api";
 import Layout from "@/components/Layout";
-import type { DateValueType } from "react-tailwindcss-datepicker/dist/types";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { NamesOnlySchema, type NamesOnly } from "@/models/birthdays";
+import { useForm, Controller, type SubmitHandler } from "react-hook-form";
+import { BirthdaySchema, type Birthday } from "@/models/birthdays";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
+import "@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css";
+import DatePicker from "@hassanmojab/react-modern-calendar-datepicker";
 
 const MyBirthdays: NextPage = () => {
   const nbsp = "\u00A0";
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors },
-  } = useForm<NamesOnly>({
-    resolver: zodResolver(NamesOnlySchema),
+    control,
+    formState: { errors },
+  } = useForm<Birthday>({
+    resolver: zodResolver(BirthdaySchema),
   });
 
-  const onSubmit: SubmitHandler<NamesOnly> = (data) => {
-    console.log(data);
-  };
+  const { mutate, isLoading: isAddingBirthday } = api.birthdays.add.useMutation(
+    {
+      onSuccess: () => {},
+    }
+  );
 
-  useEffect(() => {
-    console.log(isValid);
-  }, [isValid]);
+  const onSubmit: SubmitHandler<Birthday> = (data) => {
+    mutate(data);
+  };
 
   const { data } = api.birthdays.getAll.useQuery();
-  const [value, setValue] = useState<DateValueType>({
-    startDate: new Date(),
-    endDate: null,
-  });
-
-  const handleValueChange = (newValue: DateValueType) => {
-    console.log("newValue:", newValue);
-    setValue(newValue);
-  };
 
   return (
     <Layout title="My Birthdays" className="max-w-screen-md p-4">
@@ -93,13 +86,29 @@ const MyBirthdays: NextPage = () => {
             >
               Birthday
             </label>
-            <div className="mt-2">
-              <Datepicker
-                useRange={false}
-                asSingle={true}
-                value={value}
-                onChange={handleValueChange}
-                // {...register("birthday")}
+            <div className="mt-2 w-full">
+              <Controller
+                control={control}
+                name="birthday"
+                render={({ field: { onChange, value } }) => (
+                  <DatePicker
+                    value={value}
+                    onChange={onChange}
+                    inputPlaceholder=" "
+                    wrapperClassName="w-full text-gray-900"
+                    inputClassName="text-gray-900 rounded-md text-[14px] sm:leading-6 shadow-sm w-full text-left"
+                    formatInputText={() => {
+                      console.log(value);
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                      if (value) {
+                        return dayjs(
+                          new Date(value.year, value.month - 1, value.day)
+                        ).format("MMMM D, YYYY");
+                      }
+                      return "";
+                    }}
+                  />
+                )}
               />
             </div>
           </div>

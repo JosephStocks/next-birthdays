@@ -24,9 +24,16 @@ export const birthdaysRouter = createTRPCRouter({
   add: privateProcedure
     .input(BirthdaySchema)
     .mutation(async ({ ctx, input }) => {
+      const {
+        firstName,
+        lastName,
+        birthday: { year, month, day },
+      } = input;
       return await ctx.prisma.birthday.create({
         data: {
-          ...input,
+          firstName,
+          lastName,
+          birthday: new Date(year, month - 1, day),
           userId: ctx.currentUserId,
         },
       });
@@ -34,12 +41,21 @@ export const birthdaysRouter = createTRPCRouter({
   update: privateProcedure
     .input(BirthdayAndIdSchema)
     .mutation(({ ctx, input }) => {
-      const { id, ...rest } = input;
+      const {
+        id,
+        birthday: { year, month, day },
+        firstName,
+        lastName,
+      } = input;
       return ctx.prisma.birthday.update({
         where: {
           id,
         },
-        data: rest,
+        data: {
+          birthday: new Date(year, month, day),
+          firstName,
+          lastName,
+        },
       });
     }),
   deleteById: privateProcedure

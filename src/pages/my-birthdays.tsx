@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
 import "@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css";
 import DatePicker from "@hassanmojab/react-modern-calendar-datepicker";
+import { BounceLoader } from "react-spinners";
 
 const MyBirthdays: NextPage = () => {
   const nbsp = "\u00A0";
@@ -35,7 +36,8 @@ const MyBirthdays: NextPage = () => {
     mutate(data);
   };
 
-  const { data } = api.birthdays.getAll.useQuery();
+  const { data, isLoading: isLoadingBirthdays } =
+    api.birthdays.getAll.useQuery();
 
   return (
     <Layout title="My Birthdays" className="max-w-screen-md p-4">
@@ -158,6 +160,11 @@ const MyBirthdays: NextPage = () => {
             ))}
           </tbody>
         </table>
+        {isLoadingBirthdays && (
+          <div className="flex min-h-[400px] items-center justify-center">
+            <BounceLoader color="#4375ae" loading={isLoadingBirthdays} />
+          </div>
+        )}
       </section>
     </Layout>
   );

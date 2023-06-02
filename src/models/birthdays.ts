@@ -6,11 +6,8 @@ export const DaySchema = z.object({
   day: z.number(),
 });
 
-// export const DayValueSchema = z.union([DaySchema, z.undefined()]).nullable();
-export const DayValueSchema = DaySchema;
-
 export const BirthdaySchema = z.object({
-  birthday: DayValueSchema,
+  birthday: DaySchema,
   firstName: z.string().min(1),
   lastName: z.string().min(1).optional(),
 });

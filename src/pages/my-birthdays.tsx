@@ -14,14 +14,20 @@ const MyBirthdays: NextPage = () => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<Birthday>({
     resolver: zodResolver(BirthdaySchema),
   });
 
+  const ctx = api.useContext();
+
   const { mutate, isLoading: isAddingBirthday } = api.birthdays.add.useMutation(
     {
-      onSuccess: () => {},
+      onSuccess: () => {
+        reset();
+        void ctx.birthdays.getAll.invalidate();
+      },
     }
   );
 
@@ -98,7 +104,6 @@ const MyBirthdays: NextPage = () => {
                     wrapperClassName="w-full text-gray-900"
                     inputClassName="text-gray-900 rounded-md text-[14px] sm:leading-6 shadow-sm w-full text-left"
                     formatInputText={() => {
-                      console.log(value);
                       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                       if (value) {
                         return dayjs(
@@ -115,11 +120,16 @@ const MyBirthdays: NextPage = () => {
         </div>
 
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button type="button" className="text-sm font-semibold leading-6">
+          <button
+            type="button"
+            disabled={isAddingBirthday}
+            className="text-sm font-semibold leading-6"
+          >
             Cancel
           </button>
           <button
             type="submit"
+            disabled={isAddingBirthday}
             className="rounded-md bg-primaryblue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primaryblue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Save

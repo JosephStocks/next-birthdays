@@ -46,7 +46,7 @@ const MyBirthdays: NextPage = () => {
   }
 
   return (
-    <Layout title="My Birthdays" className="max-w-screen-md p-4">
+    <Layout title="My Birthdays" className="max-w-screen-lg shadow-lg sm:px-10">
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
@@ -146,7 +146,7 @@ const MyBirthdays: NextPage = () => {
       </form>
 
       <section className="mt-10 w-full">
-        <table className="w-full">
+        <table ref={parent} className="w-full">
           <thead className="border-b border-primaryblue-400 p-5">
             <tr className="text-left text-base">
               <th className="p-2">First name</th>
@@ -154,7 +154,7 @@ const MyBirthdays: NextPage = () => {
               <th className="p-2">Birthday</th>
             </tr>
           </thead>
-          <tbody ref={parent}>
+          <tbody>
             {data?.map(({ id, firstName, lastName, birthday }) => (
               <tr className="even:bg-primaryblue-400" key={id}>
                 <td className="p-2">{firstName}</td>

@@ -8,8 +8,10 @@ import dayjs from "dayjs";
 import "@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css";
 import DatePicker from "@hassanmojab/react-modern-calendar-datepicker";
 import { LoadingPage } from "@/components/Loading";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const MyBirthdays: NextPage = () => {
+  const [parent] = useAutoAnimate();
   const nbsp = "\u00A0";
   const {
     register,
@@ -44,7 +46,7 @@ const MyBirthdays: NextPage = () => {
   }
 
   return (
-    <Layout title="My Birthdays" className="max-w-screen-md p-4">
+    <Layout title="My Birthdays" className="max-w-screen-lg shadow-lg sm:px-10">
       <form
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
@@ -144,7 +146,7 @@ const MyBirthdays: NextPage = () => {
       </form>
 
       <section className="mt-10 w-full">
-        <table className="w-full">
+        <table ref={parent} className="w-full">
           <thead className="border-b border-primaryblue-400 p-5">
             <tr className="text-left text-base">
               <th className="p-2">First name</th>

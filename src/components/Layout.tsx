@@ -14,7 +14,7 @@ const Layout = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`mx-auto min-h-screen max-w-screen-lg border border-primaryblue-400 ${
+        className={`mx-auto min-h-screen max-w-screen-lg ${
           className ? className : ""
         }`}
       >

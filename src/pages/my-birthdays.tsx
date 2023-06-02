@@ -8,8 +8,10 @@ import dayjs from "dayjs";
 import "@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css";
 import DatePicker from "@hassanmojab/react-modern-calendar-datepicker";
 import { LoadingPage } from "@/components/Loading";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const MyBirthdays: NextPage = () => {
+  const [parent] = useAutoAnimate();
   const nbsp = "\u00A0";
   const {
     register,
@@ -152,7 +154,7 @@ const MyBirthdays: NextPage = () => {
               <th className="p-2">Birthday</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody ref={parent}>
             {data?.map(({ id, firstName, lastName, birthday }) => (
               <tr className="even:bg-primaryblue-400" key={id}>
                 <td className="p-2">{firstName}</td>

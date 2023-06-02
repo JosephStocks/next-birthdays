@@ -1,6 +1,7 @@
 import { type Config } from "tailwindcss";
 
 export default {
+  important: true,
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
@@ -18,5 +19,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 } satisfies Config;

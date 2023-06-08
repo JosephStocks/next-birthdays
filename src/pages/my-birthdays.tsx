@@ -137,7 +137,7 @@ const MyBirthdays: NextPage = () => {
           <button
             type="submit"
             disabled={isAddingBirthday}
-            className="rounded-md bg-primaryblue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primaryblue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-primaryblue-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-primaryblue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Save
           </button>

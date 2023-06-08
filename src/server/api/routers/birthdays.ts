@@ -52,7 +52,7 @@ export const birthdaysRouter = createTRPCRouter({
           id,
         },
         data: {
-          birthday: new Date(year, month, day),
+          birthday: new Date(year, month - 1, day),
           firstName,
           lastName,
         },

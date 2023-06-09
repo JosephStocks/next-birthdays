@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import { SignUp } from "@clerk/nextjs";
 
-export default function Page() {
+export default function SignUpPage() {
   return (
     <Layout
       title="Birthdays | Sign Up"
